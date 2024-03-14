@@ -1,8 +1,8 @@
-import { useEffect } from "react"
+
 import About from "../components/About"
 import ComplexNavbar from "../components/ComplexNavbar"
 import ProductCorousel from "../components/ProductCorousel"
-import axios from "axios"
+
 
 const Home = () => {
     

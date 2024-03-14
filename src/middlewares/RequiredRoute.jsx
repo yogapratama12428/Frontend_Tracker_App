@@ -1,15 +1,21 @@
 
 import { Navigate, Outlet, useLocation } from "react-router-dom"
-import { useUser } from "../hooks/useUser"
-import { useState } from "react"
+import { useUserStore } from "../hooks/useStore"
+import { useShallow } from "zustand/react/shallow"
+
 
 const RequiredRoute = () => {
 
-  const [isUser, setIsUser ] = useState(true)
-  const location = useLocation()
-  
+  const { userUid } = useUserStore(useShallow(state => ({
+    userUid: state.userUid
+  })))
+
+const location = useLocation()
+
+console.log(userUid)
+
   return (
-    isUser? <Outlet /> : <Navigate to='/' state={{  from : location  }} replace />
+      userUid? <Outlet /> : <Navigate to='/login' state={{  from : location  }} replace />
   )
 }
 

@@ -19,6 +19,9 @@ import {
   LifebuoyIcon,
   PowerIcon,
 } from "@heroicons/react/24/solid";
+import { useShallow } from "zustand/react/shallow";
+import { useUserStore } from "../../hooks/useStore";
+import axios from "axios";
  
 // profile menu component
 const profileMenuItems = [
@@ -38,16 +41,28 @@ const profileMenuItems = [
     label: "Help",
     icon: LifebuoyIcon,
   },
-  {
-    label: "Sign Out",
-    icon: PowerIcon,
-  },
 ];
  
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
  
   const closeMenu = () => setIsMenuOpen(false);
+
+   const {
+       deleteUsers
+      } = useUserStore(
+        useShallow((state) => ({
+          deleteUsers: state.deleteUsers
+            })
+          ),
+       );
+
+  const handleLogout = async () => {
+
+    await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/logout`)
+
+    deleteUsers()
+  }
  
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -100,18 +115,28 @@ function ProfileMenu() {
             </MenuItem>
           );
         })}
+
+         <MenuItem
+          className="flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+          onClick={handleLogout}
+        >
+
+          {React.createElement(PowerIcon, {
+            className: `h-5 w-5 text-red-500`,
+            strokeWidth: 2,
+          })}
+
+          <p className="font-poppins">
+            Sign Out
+          </p>
+
+
+        </MenuItem>
       </MenuList>
     </Menu>
   );
 }
  
-
- 
-
- 
-
- 
-
  
 export function ComplexNavbar() {
   return (

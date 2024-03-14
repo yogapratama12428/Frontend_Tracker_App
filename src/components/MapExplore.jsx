@@ -3,12 +3,43 @@ import 'leaflet/dist/leaflet.css';
 import '../App.css'
 import { ComplexNavbar } from "./navbar/ComplexNavbar";
 import MiniSidebar from "./sidebar/MiniSidebar";
+import useSWR from "swr";
+import { fetcher } from "../hooks/useFetcher";
+import { useUserStore } from "../hooks/useStore";
+import { useShallow } from "zustand/react/shallow";
 
 const Map = () => {
 
 const location = [1.0678, 104.0167]
 const position2 = [1.0628, 104.0167]
 const position = [1.06257, 104.02858]
+
+const { userUid } = useUserStore(useShallow(state => ({
+  userUid: state.userUid
+})),)
+
+
+const { data = [], error, isLoading } = useSWR(`${import.meta.env.VITE_BASE_URL}/api/v1/mydevice/${userUid}`, fetcher, { refreshInterval: 1000})
+
+let content
+  if (isLoading) {
+    content = (
+      <div className=".container flex justify-center">
+        <>loading</>
+      </div>
+    )
+  } else if (error) {
+    content = (
+      <div className=".container flex justify-center">
+        <>loading</>
+      </div>
+    )
+
+  } else {
+    content = data
+    console.log(content)
+  }
+
 
 return (
   <div className=".container h-screen shadow-md rounded-md relative">

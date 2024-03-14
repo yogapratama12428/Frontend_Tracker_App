@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../hooks/useStore";
+import { useShallow } from 'zustand/react/shallow'
 
 export default function Login() {
     const [showpass, setShowPass] = useState(false)
@@ -8,22 +10,43 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
 
-    
+    const {
+        updateUserUid,
+        updateUserEmail,
+      } = useUserStore(
+        useShallow((state) => ({
+              updateUserEmail: state.updateUserEmail,
+              updateUserUid: state.updateUserUid,
+            })
+          ),
+       );
+
+        // useShallow((state) => ({ nuts: state.nuts, honey: state.honey })),
 
     const handleLogin = async (e) => {
         e.preventDefault()
 
         try {
-            const response = await axios.post('http://localhost:5000/api/login', {
+
+              const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/login`, {
                 email: email,
                 password: password
-            })
-            navigate("/dashboard");
-            console.log(response)
+              },
+                {
+                  withCredentials: true
+                }
+                )
+
+                updateUserEmail(response.data.data.email)
+                updateUserUid(response.data.data._id)
+                
+                console.log(response.data.data.email)
+                
+                setTimeout(() => navigate('/dashboard'), 1000)
+        
         } catch (error) {
             console.log(error.response)
         }
-
     }
 
     return (
