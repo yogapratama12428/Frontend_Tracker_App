@@ -1,15 +1,30 @@
+import { useEffect } from "react"
 import About from "../components/About"
 import ComplexNavbar from "../components/ComplexNavbar"
 import ProductCorousel from "../components/ProductCorousel"
+import axios from "axios"
 
 const Home = () => {
     
+    // useEffect(()=> {
+    //   refreshToken()
+    // })
+
+    // const refreshToken = async () => {
+    //   try {
+    //     const response = await axios.get("http://localhost:5000/refreshtoken")
+    //     console.log(response.data)
+    //   } catch (error) {
+    //     console.log(error.response)
+    //   }
+     
+    // }
+
     return (
       <div className="container mx-auto">
           <ComplexNavbar />
           <About />
           <ProductCorousel />
-          
       </div> 
     )
 }
