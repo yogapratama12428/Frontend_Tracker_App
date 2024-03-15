@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import Dashboard from "./pages/Dashboard"
 import Login from "./pages/Login"
 import RequiredRoute from "./middlewares/RequiredRoute"
+import TruckId from "./components/dashboard/TruckId"
 
 function App() {
 
@@ -13,7 +14,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/Login" element={<Login />} />
             <Route element={<RequiredRoute />} >
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} >
+                <Route path=":truckId" element={<TruckId />} />
+              </Route>
+
+          
+
             </Route>
           </Routes>
         </BrowserRouter>

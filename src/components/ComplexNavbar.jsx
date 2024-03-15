@@ -233,7 +233,7 @@ import { Link } from "react-router-dom";
    
   export default function ComplexNavbar() {
     const [isNavOpen, setIsNavOpen] = React.useState(false);
-    const [isUser, setIsUser] = useState(false)
+    const [isUser, setIsUser] = useState(true)
    
     const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
    
@@ -247,17 +247,16 @@ import { Link } from "react-router-dom";
     return (
       <Navbar className="mt-2 mx-auto max-w-screen-2xl py-2  sticky top-0">
         <div className="relative mx-auto flex items-center text-blue-gray-900 justify-between">
-          <Typography
-            as="a"
-            href="#"
-            className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+          <p
+            href="/"
+            className="mr-4 ml-2 cursor-pointer py-1.5  font-bold text-lg"
           >
-            Track Mobil
-          </Typography>
-          <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
+            Indo Tracking Mobil
+          </p>
+          {/* <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
             <NavList />
-          </div>
-          <IconButton
+          </div> */}
+          {/* <IconButton
             size="sm"
             color="blue-gray"
             variant="text"
@@ -265,7 +264,7 @@ import { Link } from "react-router-dom";
             className="ml-auto mr-2 lg:hidden"
           >
             <Bars2Icon className="h-6 w-6" />
-          </IconButton>
+          </IconButton> */}
 
           {
             isUser 
@@ -281,9 +280,9 @@ import { Link } from "react-router-dom";
          
           
         </div>
-        <Collapse open={isNavOpen} className="overflow-scroll">
+        {/* <Collapse open={isNavOpen} className="overflow-scroll">
           <NavList />
-        </Collapse>
+        </Collapse> */}
       </Navbar>
     );
   }

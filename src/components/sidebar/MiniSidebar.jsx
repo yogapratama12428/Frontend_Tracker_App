@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
 import {
   Card,
   Input,
@@ -16,12 +17,21 @@ import {
 } from "@heroicons/react/24/outline";
 import TruckCart from "../cart/TruckCart";
 
-const MiniSidebar = () => {
+const MiniSidebar = (props) => {
+
+    const { device } = props;
 
     const [open, setOpen] = React.useState(true);
+    const [open2, setOpen2] = React.useState(false);
+
+    const [name, setName] = useState("")
 
     const handleOpen2 = () => {
         setOpen(!open) 
+    }
+
+    const handleOpen = () => {
+        setOpen2(!open2) 
     }
 
   return (
@@ -40,7 +50,8 @@ const MiniSidebar = () => {
 
         {
             open === false ? (
-                <Card className="h-[calc(70vh-2rem)] w-full max-w-[20rem] p-4 m-2 shadow-xl shadow-blue-gray-900/5 overflow-y-auto">
+                <Card 
+                    className="h-[calc(70vh-2rem)] w-full max-w-[20rem] p-4 m-2 shadow-xl shadow-blue-gray-900/5 overflow-y-auto">
                 <div className="mb-2 flex items-center gap-4 p-4 justify-between">
                     <img src="https://docs.material-tailwind.com/img/logo-ct-dark.png" alt="brand" className="h-8 w-8" />
                     <button onClick={setOpen}>
@@ -49,10 +60,31 @@ const MiniSidebar = () => {
                 </div>
                 <div className="p-2">
                     <Input icon={<MagnifyingGlassIcon className="h-5 w-5" />} label="Search" />
+                    <button 
+                        onClick={() => handleOpen}
+                        className="w-full py-2 rounded-md bg-green-50 my-1"> 
+                        Add Mobil
+                    </button>
+
+                    {
+                        open2 && (
+                            <div className="max-w-[26rem]  p-2 bg-indigo-50"> 
+                                <input onChange={ (e) => setName(e.target.value)} placeholder="test" />
+                                
+                            </div>
+                        )
+                    }
+
+                    
+
+
+
+
+
+                    <TruckCart devices={ device } />
+                    {/* <TruckCart />
                     <TruckCart />
-                    <TruckCart />
-                    <TruckCart />
-                    <TruckCart />
+                    <TruckCart /> */}
                 </div>
             </Card>
             ) : <></>
