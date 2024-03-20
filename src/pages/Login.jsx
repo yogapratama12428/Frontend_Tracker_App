@@ -38,7 +38,7 @@ export default function Login() {
                 )
 
                 updateUserEmail(response.data.data.email)
-                updateUserUid(response.data.data._id)
+                updateUserUid(response.data.data.id)
                 
                 console.log(response.data.data.email)
                 

@@ -21,10 +21,9 @@ const Home = () => {
     // }
 
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto ">
           <ComplexNavbar />
           <About />
-          <ProductCorousel />
       </div> 
     )
 }

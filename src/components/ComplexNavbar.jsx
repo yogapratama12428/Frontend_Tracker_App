@@ -29,7 +29,11 @@ import {
     RocketLaunchIcon,
     Bars2Icon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useUserStore } from "../hooks/useStore";
+import { useShallow } from "zustand/react/shallow";
+import logo from "../assets/logo.png"
    
   // profile menu component
   const profileMenuItems = [
@@ -48,17 +52,43 @@ import { Link } from "react-router-dom";
     {
       label: "Help",
       icon: LifebuoyIcon,
-    },
-    {
-      label: "Sign Out",
-      icon: PowerIcon,
-    },
+    }
   ];
    
   function ProfileMenu() {
+    const {
+      updateUserUid,
+      updateUserEmail,
+    } = useUserStore(
+      useShallow((state) => ({
+            updateUserEmail: state.updateUserEmail,
+            updateUserUid: state.updateUserUid,
+          })
+        ),
+     );
+
+    const navigate = useNavigate()
+     
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
    
     const closeMenu = () => setIsMenuOpen(false);
+
+    const handleLogOut = async() => {
+      try {
+
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/logout`, { withCredentials: true })
+
+          updateUserEmail("")
+          updateUserUid("")
+          
+          console.log(response)
+          
+          setTimeout(() => navigate('/'), 1000)
+  
+      } catch (error) {
+          console.log(error.response)
+      }
+    }
    
     return (
       <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end" className="sticky">
@@ -90,28 +120,43 @@ import { Link } from "react-router-dom";
               <MenuItem
                 key={label}
                 onClick={closeMenu}
-                className={`flex items-center gap-2 rounded ${
-                  isLastItem
-                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                    : ""
-                }`}
+                className={`flex items-center gap-2 rounded`}
               >
                 {React.createElement(icon, {
-                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                  className: `h-4 w-4`,
                   strokeWidth: 2,
                 })}
                 <Typography
                   as="span"
                   variant="small"
                   className="font-normal"
-                  color={isLastItem ? "red" : "inherit"}
+                  color="inherit"
                 >
                   {label}
                 </Typography>
               </MenuItem>
             );
           })}
+            <MenuItem
+                key={'abubutton'}
+                onClick={handleLogOut}
+                className={`flex items-center gap-2 rounded over:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10`}
+              >
+                {React.createElement(PowerIcon, {
+                  className: `h-4 w-4 text-red-500`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  as="span"
+                  variant="small"
+                  className="font-normal"
+                  color="red" 
+                >
+                  Sign Out
+                </Typography>
+              </MenuItem>
         </MenuList>
+       
       </Menu>
     );
   }
@@ -234,6 +279,10 @@ import { Link } from "react-router-dom";
   export default function ComplexNavbar() {
     const [isNavOpen, setIsNavOpen] = React.useState(false);
     const [isUser, setIsUser] = useState(true)
+
+    const { userUid } = useUserStore(useShallow(state => ({
+      userUid: state.userUid
+    })))
    
     const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
    
@@ -245,8 +294,11 @@ import { Link } from "react-router-dom";
     }, []);
    
     return (
-      <Navbar className="mt-2 mx-auto max-w-screen-2xl py-2  sticky top-0">
+      <Navbar className="mt-2 mx-auto max-w-screen-2xl sticky top-0">
         <div className="relative mx-auto flex items-center text-blue-gray-900 justify-between">
+          <img 
+            className="w-16 h-auto"
+            src={logo}/>
           <p
             href="/"
             className="mr-4 ml-2 cursor-pointer py-1.5  font-bold text-lg"
@@ -267,7 +319,7 @@ import { Link } from "react-router-dom";
           </IconButton> */}
 
           {
-            isUser 
+            userUid 
             ? (<ProfileMenu user = {isUser}/>) 
             : (
               <Link to={'/login'} >

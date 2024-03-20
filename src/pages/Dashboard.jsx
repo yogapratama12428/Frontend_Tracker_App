@@ -21,8 +21,10 @@ const { userUid } = useUserStore(useShallow(state => ({
   userUid: state.userUid
 })),)
 
+console.log(userUid)
 
-const { data = [], error, isLoading } = useSWR(`${import.meta.env.VITE_BASE_URL}/api/v1/mydevice/${userUid}`, fetcher, { refreshInterval: 1000})
+
+const { data = [], error, isLoading } = useSWR(`${import.meta.env.VITE_BASE_URL}/api/v1/user/${userUid}`, fetcher, { refreshInterval: 1000})
 
 let content
 
@@ -42,7 +44,7 @@ let content
   } else {
     console.log(data)
     content = (
-        <div className="flex absolute inset-y-0 left-0 z-50 mx-2 mt-20 ml-12">
+        <div className="flex absolute inset-y-0 left-0 z-50 mx-2 mt-28 ml-6">
         
         <MiniSidebar device={data} />
     

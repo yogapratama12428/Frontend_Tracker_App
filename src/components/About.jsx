@@ -4,8 +4,10 @@ const About = () => {
     {/* <p className="font-normal text-sm leading-3 text-indigo-700 hover:text-indigo-800 cursor-pointer pb-2">About</p> */}
     <div className="flex lg:flex-row flex-col lg:gap-8 sm:gap-10 gap-12">
         <div className="w-full lg:w-6/12">
-            <h2 className="w-full font-bold lg:text-4xl text-3xl lg:leading-10 leading-9">We are here to make great design accessible and delightfull for everyone</h2>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.In the first place we have granted to God, and by this our present charter confirmed for us and our heirs forever that the English Church shall be free, and shall have her rights entire,</p>
+            <h2 className="w-full font-bold lg:text-4xl text-3xl lg:leading-10 leading-9">Pastikan kendaraan Anda Aman Bersama Kami</h2>
+            <p className="font-normal text-base leading-6 text-gray-900 mt-6">
+                Pantau Seluruh Mobil Bisnis Kamu Real Time 24 Jam. Mendeteksi Mobil Bisnis yang Paling boros BBM & Indikasi Pencurian BBM, Mendeteksi Cara Buruk Sopir Mengemudi Seperti Ngebut & Rem Mendadak
+            </p>
         </div>
         <div className="w-full lg:w-6/12">
             <img className="lg:block hidden w-full" src="https://i.ibb.co/RjNH7QB/Rectangle-122-1.png" alt="people discussing on board" />
@@ -45,12 +47,14 @@ const About = () => {
     </div>
     <div className="grid sm:grid-cols-3 grid-cols-2 sm:gap-8 gap-4">
         <div>
-            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">Founded</p>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">Geofence </p>
+            <p className="font-normal text-base leading-6 text-gray-600 mt-6">
+            Buat batas area dengan GPS Tracker untuk memberikan peringatan apabila kendaraan kamu keluar dari batas area.
+            </p>
         </div>
         <div>
-            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">50M montly enrichments</p>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">Live Tracking</p>
+            <p className="font-normal text-base leading-6 text-gray-600 mt-6">Pantau real time seluruh kendaraan kamu. Dapatkan notifikasi ketika kendaraan sampai di tempat tujuan dengan GPS Tracker.</p>
         </div>
         <div className="sm:block hidden">
             <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">400k User</p>

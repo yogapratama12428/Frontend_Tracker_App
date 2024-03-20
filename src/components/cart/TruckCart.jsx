@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
-import { PaperAirplaneIcon, TruckIcon } from "@heroicons/react/24/outline"
+import { TruckIcon, XCircleIcon } from "@heroicons/react/24/outline"
 
 import {
     Card,
-    CardBody,
     CardHeader,
     Typography,
     Timeline,
@@ -20,25 +19,43 @@ import {
   } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const TruckCart = (props) => {
 
     const { devices } = props
+
+    console.log(devices)
     
     const navigate = useNavigate()
 
     const [open, setOpen ] = useState(false)
 
-    const handleOpen = () => {
-        setOpen(!open)
+    // const handleOpen = () => {
+    //     setOpen(!open)
+    // }
+
+    const handleDeleteCar = async (deviceId)=> {
+        try {
+            const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/v1/device/${deviceId}`, { withCredentials: true }
+            )
+
+            setTimeout(()=> {
+                navigate('/dashboard')
+            },100)
+            
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
     }
  
   return (
     <div >
         {
-            devices && (
-                devices.map((d)=> (
-                    <div key={d._id} className="border mt-2 rounded-xl">
-                        <Card color="transparent" shadow={false} className="w-full max-w-[26rem] rounded-md shadow-none my-1" onClick={()=> navigate(d._id)}>
+            devices && devices.devices && (
+                devices.devices.map((d)=> (
+                    <div key={d.id} className="border mt-2 rounded-xl">
+                        <Card color="transparent" shadow={false} className="w-full max-w-[26rem] rounded-md shadow-none my-1" onClick={()=> navigate(d.id)}>
                                 <CardHeader
                                     color="transparent"
                                     floated={false}
@@ -53,18 +70,23 @@ const TruckCart = (props) => {
                                 
                                     <div className="flex w-full flex-col gap-0.5">
                                         <div className="flex items-center justify-between">
-                                            <p className="text-sm text-black">
+                                            <p className="text-md text-black">
                                                 {d.name}
                                             </p>
                                         <div className="flex items-center gap-0">
                                             <button 
-                                                className="w-auto mx-2 text-xs"> 
-                                                <PaperAirplaneIcon className="w-4 h-4 text-black"/>
+                                                className="w-auto mx-2 text-md"> 
+                                                <XCircleIcon className="w-7 h-7 text-black"
+                                                onClick={()=>handleDeleteCar(d.id)}    
+                                            />
+                                                
                                             </button>
                                         </div>
                                         </div>
-                                        <p className="text-xs mb-2">
-                                            9 Dec 2024 / Tanjung Piayu
+                                        <p className="text-sm text-black font-bold mb-2">
+                                           {
+                                             `Token API : ${d.token}`
+                                           }
                                         </p>
                                     </div>
                                 </CardHeader>

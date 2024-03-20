@@ -9,10 +9,10 @@ const TruckId = () => {
 
     const { truckId } = useParams()
 
-    console.log(truckId)
+   
     
     const { data = [], error, isLoading } = useSWR(`${import.meta.env.VITE_BASE_URL}/api/v1/device/${truckId}`, fetcher, { refreshInterval: 1000})
-
+  
     let content
 
   if (isLoading) {
@@ -29,10 +29,10 @@ const TruckId = () => {
     )
 
   } else {
-    console.log(data.location)
+    console.log(data.locations)
     content = (
-        data && data.location.length > 0 && (
-          data.location.map((d) => {
+        data.locations && data.locations.length > 0 ? (
+          data.locations.map((d) => {
             return (
               <Marker
                 key={d.id}
@@ -48,7 +48,9 @@ const TruckId = () => {
               </Marker>
             )
           })
-        )
+        ) : <>
+          
+        </>
        
     )
    
@@ -62,6 +64,19 @@ const TruckId = () => {
        {
         content
        }
+
+            {/* <Marker
+                key={1}
+                position={[104.1, 4.1]}
+              >
+                <Popup>
+                  <div>
+                    <p className="text-sm text-black">
+                      BP test
+                    </p>
+                  </div>
+                </Popup>
+              </Marker> */}
     </div>
   )
 }
