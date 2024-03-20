@@ -24,6 +24,7 @@ const Home = () => {
       <div className="container mx-auto ">
           <ComplexNavbar />
           <About />
+          <ProductCorousel />
       </div> 
     )
 }

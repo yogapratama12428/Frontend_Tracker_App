@@ -4,20 +4,13 @@ import { TruckIcon, XCircleIcon } from "@heroicons/react/24/outline"
 import {
     Card,
     CardHeader,
-    Typography,
-    Timeline,
-    TimelineItem,
-    TimelineConnector,
-    TimelineIcon,
-    TimelineHeader,
-    TimelineBody,
     
   } from "@material-tailwind/react";
    
 
   import {
   } from "@heroicons/react/24/solid";
-import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const TruckCart = (props) => {
@@ -27,12 +20,6 @@ const TruckCart = (props) => {
     console.log(devices)
     
     const navigate = useNavigate()
-
-    const [open, setOpen ] = useState(false)
-
-    // const handleOpen = () => {
-    //     setOpen(!open)
-    // }
 
     const handleDeleteCar = async (deviceId)=> {
         try {
@@ -97,7 +84,7 @@ const TruckCart = (props) => {
         }
        
         
-        <>
+        {/* <>
         {
             open && (
                 <div className="max-w-[26rem]  p-2 bg-indigo-50">
@@ -134,7 +121,7 @@ const TruckCart = (props) => {
             )
         }
        
-        </>
+        </> */}
     </div>
   )
 }

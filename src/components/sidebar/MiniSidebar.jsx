@@ -7,13 +7,12 @@ import {
 } from "@material-tailwind/react";
 import {
 
-  Cog8ToothIcon,
+
 } from "@heroicons/react/24/solid";
 import {
-  MagnifyingGlassIcon,
+  
   PlusIcon,
   Squares2X2Icon,
-  TruckIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
