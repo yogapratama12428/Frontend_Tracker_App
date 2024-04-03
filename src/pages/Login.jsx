@@ -13,37 +13,37 @@ export default function Login() {
     const {
         updateUserUid,
         updateUserEmail,
-      } = useUserStore(
+    } = useUserStore(
         useShallow((state) => ({
-              updateUserEmail: state.updateUserEmail,
-              updateUserUid: state.updateUserUid,
-            })
-          ),
-       );
+            updateUserEmail: state.updateUserEmail,
+            updateUserUid: state.updateUserUid,
+        })
+        ),
+    );
 
-        // useShallow((state) => ({ nuts: state.nuts, honey: state.honey })),
+    // useShallow((state) => ({ nuts: state.nuts, honey: state.honey })),
 
     const handleLogin = async (e) => {
         e.preventDefault()
 
         try {
 
-              const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/login`, {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/login`, {
                 email: email,
                 password: password
-              },
+            },
                 {
-                  withCredentials: true
+                    headers: { 'Content-Type': 'application/json' }
                 }
-                )
+            )
 
-                updateUserEmail(response.data.data.email)
-                updateUserUid(response.data.data.id)
-                
-                console.log(response.data.data.email)
-                
-                setTimeout(() => navigate('/dashboard'), 1000)
-        
+            updateUserEmail(response.data.data.email)
+            updateUserUid(response.data.data.id)
+
+            console.log(response.data.data.email)
+
+            setTimeout(() => navigate('/dashboard'), 1000)
+
         } catch (error) {
             console.log(error.response)
         }
@@ -113,12 +113,12 @@ export default function Login() {
                                 {" "}
                                 Email{" "}
                             </label>
-                            <input 
-                                onChange={(e) => setEmail(e.target.value)} 
-                                id="email" 
-                                aria-labelledby="email" 
-                                type="email" 
-                                className="bg-gray-200 border rounded text-xs font-medium leading-none placeholder-gray-800 text-gray-800 py-3 w-full pl-3 mt-2" 
+                            <input
+                                onChange={(e) => setEmail(e.target.value)}
+                                id="email"
+                                aria-labelledby="email"
+                                type="email"
+                                className="bg-gray-200 border rounded text-xs font-medium leading-none placeholder-gray-800 text-gray-800 py-3 w-full pl-3 mt-2"
                                 placeholder="e.g: john@gmail.com " />
                         </div>
                         <div className="mt-6 w-full">
@@ -128,13 +128,13 @@ export default function Login() {
                             </label>
                             <div className="relative flex items-center justify-center">
 
-                                <input 
-                                    onChange={(e) => setPassword(e.target.value)} 
-                                    id="myInput" type={showpass ? "text" : "password"} 
-                                    className="bg-gray-200 border rounded text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2" 
+                                <input
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    id="myInput" type={showpass ? "text" : "password"}
+                                    className="bg-gray-200 border rounded text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
                                 />
-                                
-                                <div onClick={()=>setShowPass(!showpass)} className="absolute right-0 mt-2 mr-3 cursor-pointer">
+
+                                <div onClick={() => setShowPass(!showpass)} className="absolute right-0 mt-2 mr-3 cursor-pointer">
                                     <div id="show">
                                         <svg width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
