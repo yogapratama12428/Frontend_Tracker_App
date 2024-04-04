@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 import Layout from '../components/Layout'
 
 import { fetcher } from '../hooks/useFetcher'
-import { MapContainer, TileLayer} from "react-leaflet"
+import { MapContainer, TileLayer } from "react-leaflet"
 import 'leaflet/dist/leaflet.css';
 import '../App.css'
 
@@ -11,22 +11,25 @@ import { useUserStore } from "../hooks/useStore";
 import { useShallow } from "zustand/react/shallow";
 import ComplexNavbar from '../components/ComplexNavbar'
 import MiniSidebar from '../components/sidebar/MiniSidebar'
+import { useState } from 'react';
 
 
 
 const Dashboard = () => {
 
 
-const { userUid } = useUserStore(useShallow(state => ({
-  userUid: state.userUid
-})),)
+  const { userUid } = useUserStore(useShallow(state => ({
+    userUid: state.userUid
+  })),)
 
-console.log(userUid)
+  const [stateMap, setStateMap] = useState(false)
+
+  console.log(userUid)
 
 
-const { data = [], error, isLoading } = useSWR(`${import.meta.env.VITE_BASE_URL}/api/v1/user/${userUid}`, fetcher, { refreshInterval: 1000})
+  const { data = [], error, isLoading } = useSWR(`${import.meta.env.VITE_BASE_URL}/api/v1/user/${userUid}`, fetcher, { refreshInterval: 1000 })
 
-let content
+  let content
 
   if (isLoading) {
     content = (
@@ -44,45 +47,56 @@ let content
   } else {
     console.log(data)
     content = (
-        <div className="flex absolute inset-y-0 left-0 z-50 mx-2 mt-28 ml-6">
-        
+      <div className="flex absolute inset-y-0 left-0 z-50 mx-2 mt-28 ml-6">
+
         <MiniSidebar device={data} />
-    
-    </div>
+
+      </div>
     )
-   
+
   }
 
   const location = [1.0678, 104.0167]
 
-    return (
-        <div className=".container h-screen shadow-md rounded-md relative">
-        <MapContainer
-          center={location}
-          zoom={13}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-           
+  setTimeout(() => {
+    setStateMap(true)
+  }, 1000)
+
+
+  return (
+    <div className=".container h-screen shadow-md rounded-md relative">
+
+      {
+        stateMap && (
+          <MapContainer
+            center={location}
+            zoom={13}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+
             <Layout>
-                <Outlet />
+              <Outlet />
             </Layout>
-        </MapContainer>
-    
-        <div className="absolute inset-x-0 top-0 h-10 mt-3 ml-16 .container z-50 mx-6">
-          <ComplexNavbar />
-          
-        </div>
-        
-        {
-            content
-        }
-        
-    
+          </MapContainer>
+        )
+      }
+
+
+      <div className="absolute inset-x-0 top-0 h-10 mt-3 ml-16 .container z-50 mx-6">
+        <ComplexNavbar />
+
       </div>
-     )
+
+      {
+        content
+      }
+
+
+    </div>
+  )
 }
 
 export default Dashboard
