@@ -9,22 +9,22 @@ function App() {
 
   return (
     <>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/Login" element={<Login />} />
-            <Route element={<RequiredRoute />} >
-              <Route path="/dashboard" element={<Dashboard />} >
-                <Route path=":truckId" element={<TruckId />} />
-              </Route>
-
-          
-
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Login" element={<Login />} />
+          <Route element={<RequiredRoute />} >
+            <Route path="/dashboard" element={<Dashboard />} >
+              <Route path=":truckId" element={<TruckId />} />
             </Route>
-          </Routes>
-        </BrowserRouter>
+
+
+
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
-    
+
   )
 }
 
